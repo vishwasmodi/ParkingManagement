@@ -8,6 +8,7 @@ import requests
 from flask import Flask, Response
 import threading
 import queue
+from parking import registerEntry
 
 carCascade = cv2.CascadeClassifier('haar.xml')
 video = cv2.VideoCapture('car_video.mp4')
@@ -51,7 +52,8 @@ def getRegistrationNumber():
 
         print(f'Car {car_id}:', end=' ')
         try:
-            print(result['results'][0]['plate'])
+            # print(result['results'][0]['plate'])
+            registerEntry(result['results'][0]['plate'])
         except:
             print('No registration number detected')
 
